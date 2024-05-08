@@ -1,6 +1,8 @@
 <script lang="ts">
     import type { ITodo } from "$root/types/todos";
     import AddTodo from './Addtodos.svelte'
+    import Todo from './Todo.svelte'
+
     // state
     let todos:ITodo[] = [
         { id: '1e4a59703af84', text: 'Todo 1', completed: true },
