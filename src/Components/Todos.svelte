@@ -1,8 +1,10 @@
 <script lang="ts">
     import type { ITodo } from "$root/types/todos";
     type CompleteTodoType = (id:string) => void
+    type RemoveTodo = (id:string)=> void
     export let todo :ITodo
     export let completeTodo : CompleteTodoType
+    export let removeTodo : RemoveTodo
 
 </script>
 
@@ -15,7 +17,7 @@
         <span 
         class:completed={todo.completed}
         class="todo-text">{todo.text}</span>
-        <button aria-label="Remove todo" class="remove" />
+        <button aria-label="Remove todo" class="remove" on:click={()=>removeTodo(todo.id)} />
     </div>
 
     <!-- <input type="text" class="edit" autofocus> -->

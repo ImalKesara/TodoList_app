@@ -20,16 +20,18 @@
         return Math.random().toString(16).slice(2)
     }
 
+
+    // add new item
     function addTodo(todo: string): void {
-    let newTodo: ITodo = {
-      id: generateRandomId(),
-      text: todo,
-      completed: false,
-    }
-    todos = [...todos, newTodo]
+      let newTodo: ITodo = {
+        id: generateRandomId(),
+        text: todo,
+        completed: false,
+      }
+      todos = [...todos, newTodo]
     }
 
-
+    // toggleCompleted
     function toggleCompleted(event:MouseEvent) : void{
         let {checked } = event.target as HTMLInputElement
 
@@ -39,6 +41,7 @@
         }))
     }
 
+    // completeTodo
     function completeTodo(id:string) :void{
       todos = todos.map(todo => {
         if(todo.id == id){
@@ -48,7 +51,10 @@
       })
     }
 
-
+    // remove todo item 
+    function removeTodo(id:string) : void{
+      todos = todos.filter(todo =>{ todo.id !== id})
+    }
 
 
 </script>
@@ -61,9 +67,7 @@
         {#if todosamount}
         <ul class="todo-list">
                 {#each todos as todo (todo.id) }
-                    
-                  <Todo {todo} {completeTodo}/>
-                
+                  <Todo {todo} {completeTodo} {removeTodo}/>
                 {/each}
             </ul>
 
@@ -79,9 +83,6 @@
             {/if}
 
     </section>
-
-
-
 </main>
 
 <style>
