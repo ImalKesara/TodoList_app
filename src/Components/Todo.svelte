@@ -52,9 +52,25 @@
     }
 
     // remove todo item 
-    function removeTodo(id:string) : void{
-      todos = todos.filter(todo =>{ todo.id !== id})
-    }
+    // function removeTodo(id:string) : void{
+    //   todos = todos.filter((todo) => todo.id !== id)
+    // }
+
+    function removeTodo(id: string): void {
+    todos = todos.filter(todo => {
+        return todo.id !== id;
+    });
+}
+
+
+    // remove todo item 
+    // function removeTodo(id: string): void {
+    //     todos = todos.filter(todo => todo.id !== id);
+    // }
+
+
+    
+
 
 
 </script>

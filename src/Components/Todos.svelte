@@ -1,10 +1,10 @@
 <script lang="ts">
     import type { ITodo } from "$root/types/todos";
     type CompleteTodoType = (id:string) => void
-    type RemoveTodo = (id:string)=> void
+    type RemoveTodoType = (id:string)=> void
     export let todo :ITodo
     export let completeTodo : CompleteTodoType
-    export let removeTodo : RemoveTodo
+    export let removeTodo : RemoveTodoType
 
 </script>
 
