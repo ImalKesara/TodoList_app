@@ -1,7 +1,7 @@
 <script lang="ts">
     import type { ITodo } from "$root/types/todos";
     import AddTodo from './Addtodos.svelte'
-    import Todo from './Todo.svelte'
+    import Todo from './Todos.svelte'
 
     // state
     let todos:ITodo[] = [
@@ -27,7 +27,7 @@
       completed: false,
     }
     todos = [...todos, newTodo]
-  }
+    }
 
 
     function toggleCompleted(event:MouseEvent) : void{
@@ -38,6 +38,19 @@
             completed :checked
         }))
     }
+
+    function completeTodo(id:string) :void{
+      todos = todos.map(todo => {
+        if(todo.id == id){
+          todo.completed = !todo.completed
+        }
+        return todo;
+      })
+    }
+
+
+
+
 </script>
 
 
@@ -49,19 +62,8 @@
         <ul class="todo-list">
                 {#each todos as todo (todo.id) }
                     
+                  <Todo {todo} {completeTodo}/>
                 
-                <li class="todo">
-                    <div class="todo-item">
-                        <div>
-                            <input checked={todo.completed} id="todo" class="toggle" type = "checkbox">
-                            <label for="todo" aria-label="Check todo" class="todo-check"/>
-                        </div>
-                        <span class="todo-text">{todo.text}</span>
-                        <button aria-label="Remove todo" class="remove" />
-                    </div>
-
-                    <!-- <input type="text" class="edit" autofocus> -->
-                </li>
                 {/each}
             </ul>
 
@@ -83,8 +85,8 @@
 </main>
 
 <style>
-    /* Todos */
-  
+
+
     .title {
       font-size: var(--font-80);
       font-weight: inherit;
@@ -217,7 +219,7 @@
     .todo:hover .remove {
       display: block;
     }
-  
+
     /* Filters */
   
     .filters {
