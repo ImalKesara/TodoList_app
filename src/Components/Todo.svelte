@@ -2,6 +2,7 @@
     import type { ITodo } from "$root/types/todos";
     import AddTodo from './Addtodos.svelte'
     import Todo from './Todos.svelte'
+    import TodosLeft from './TodosLeft.svelte'
 
     // state
     let todos:ITodo[] = [
@@ -57,16 +58,21 @@
     // }
 
     function removeTodo(id: string): void {
-    todos = todos.filter(todo => {
-        return todo.id !== id;
-    });
-}
+      todos = todos.filter(todo => {
+          return todo.id !== id;
+      });
+    }
 
+    // edit todo
 
-    // remove todo item 
-    // function removeTodo(id: string): void {
-    //     todos = todos.filter(todo => todo.id !== id);
-    // }
+    function editTodo(id :string, newTodo: string):void {
+        let currenTodo = todos.findIndex((todo)=>{
+            return todo.id == id
+        })
+
+        todos[currenTodo].text = newTodo
+    }
+
 
 
     
@@ -83,7 +89,7 @@
         {#if todosamount}
         <ul class="todo-list">
                 {#each todos as todo (todo.id) }
-                  <Todo {todo} {completeTodo} {removeTodo}/>
+                  <Todo {todo} {completeTodo} {removeTodo} {editTodo}/>
                 {/each}
             </ul>
 
