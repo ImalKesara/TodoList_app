@@ -16,6 +16,7 @@
     $: console.log(todos)
 
     $: todosamount = todos.length
+    $: incompletetodos = todos.filter((todo)=> !todo.completed).length
 
     function generateRandomId(): string{
         return Math.random().toString(16).slice(2)
@@ -94,7 +95,7 @@
             </ul>
 
             <div class="actions">
-                <span class="todo-count">0 left</span>
+                <TodosLeft {incompletetodos}/>
                 <div class="filters">
                     <button class="fillter">All</button>
                     <button class="fillter">Active</button>
