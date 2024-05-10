@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap');
 
 *,
 *::before,
@@ -9,9 +9,9 @@
 }
 
 :root {
-  --sans-serif: "Inter", sans-serif;
+  --sans-serif: 'Inter', sans-serif;
 
-  --color-bg: hsl(220, 20%, 14%);
+  --color-bg: #ca0411;
   --color-text: hsl(0, 0%, 2%);
   --color-title: hsl(357, 49%, 48%);
   --color-highlight: hsl(0, 33%, 64%);
@@ -43,7 +43,7 @@ body {
   font-family: var(--sans-serif);
   font-weight: 300;
   line-height: 1.4;
-  background-color: var(--color-bg);
+  background-color: black;
   color: var(--color-text);
 }
 

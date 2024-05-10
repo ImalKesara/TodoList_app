@@ -54,6 +54,7 @@
     }
     
     .new-todo {
+        background-color: #96EFFF;
         width: 100%;
         padding: var(--spacing-16);
         padding-left: 60px;
