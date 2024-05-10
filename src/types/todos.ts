@@ -3,3 +3,5 @@ export interface ITodo {
   text: string;
   completed: boolean;
 }
+
+export type FillterType = 'all' | 'active' | 'completed';
