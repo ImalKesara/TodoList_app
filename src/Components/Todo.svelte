@@ -1,32 +1,38 @@
 <script lang="ts">
     import type { FillterType,ITodo } from "$root/types/todos";
-    import {useStoragee} from '$root/types/useStorage';
+    import {useStorage} from '$root/types/useStorage';
+
     import AddTodo from './Addtodos.svelte'
     import Todo from './Todos.svelte'
     import TodosLeft from './TodosLeft.svelte'
+    import {tick} from 'svelte'
     import FilterTodos from "./FilterTodos.svelte";
     import ClearTodos from "./ClearTodos.svelte"
     import '$root/styles/Todo.css'
 
-    // state
-        // { id: '1e4a59703af84', text: 'Todo 1', completed: true },
-        // { id: '9e09bcd7b9349', text: 'Todo 2', completed: false },
-        // { id: '9e4273a51a37c', text: 'Todo 3', completed: false },
-        // { id: '53ae48bf605cc', text: 'Todo 4', completed: false },
-    // let todos: ITodo[] = JSON.parse(localStorage.getItem('todos')) ?? []
+    
+    let todos: ITodo[] = [
+      { id: '1e4a59703af84', text: 'DutchTodos van der Linde', completed: true },
+      { id: '9e09bcd7b9349', text: 'Arthur Morgan', completed: false },
+    ]
+    
+    // todos = useStorage<ITodo[]>('todos',[]);
+    // let todos: ITodo[] = useStorage<ITodo[]>('todos', []);
 
 
-
-    let todos = useStoragee<ITodo[]>('todos', [])
-
+    let filtering = false
 
     // type FillterType = 'all' | 'active' | 'completed';
     let selectedFilter: FillterType = 'all'
+    $: console.log(todos)
+    $: completeTodoo = todos.filter(todo=> todo.completed).length
+    $: todosamount = todos.length
+    $: incompletetodos = todos.filter((todo)=> !todo.completed).length
+    $: filltertodos =  fillterTodos(todos,selectedFilter)
+    $: {localStorage.setItem('todos', JSON.stringify(todos))}
+    $: duration = filtering ? 0 : 250
 
-    $: completeTodoo = $todos.filter((todo)=> todo.completed).length
-    $: todosamount = $todos.length
-    $: incompletetodos = $todos.filter((todo)=> !todo.completed).length
-    $: filltertodos =  fillterTodos($todos,selectedFilter)
+    console.log(duration)
 
     function generateRandomId(): string{
         return Math.random().toString(16).slice(2)
@@ -40,14 +46,14 @@
         text: todo,
         completed: false,
       }
-      $todos = [...$todos, newTodo]
+      todos = [...todos, newTodo]
     }
 
     // toggleCompleted
     function toggleCompleted(event:MouseEvent) : void{
         let {checked } = event.target as HTMLInputElement
 
-        $todos = $todos.map(todo =>({
+        todos = todos.map(todo =>({
             ...todo,
             completed :checked
         }))
@@ -55,7 +61,7 @@
 
     // completeTodo
     function completeTodo(id:string) :void{
-      $todos = $todos.map(todo => {
+      todos = todos.map(todo => {
         if(todo.id == id){
           todo.completed = !todo.completed
         }
@@ -64,7 +70,7 @@
     }
 
     function removeTodo(id: string): void {
-      $todos = $todos.filter(todo => {
+      todos = todos.filter(todo => {
           return todo.id !== id;
       });
     }
@@ -72,15 +78,18 @@
     // edit todo
 
     function editTodo(id :string, newTodo: string):void {
-        let currenTodo = $todos.findIndex((todo)=>{
+        let currenTodo = todos.findIndex((todo)=>{
             return todo.id == id
         })
-
-        $todos[currenTodo].text = newTodo
+        todos[currenTodo].text = newTodo
     }
 
-    function setFilter(newFilter: FillterType):void{
+    async function setFilter(newFilter: FillterType):Promise <void>{
+      filtering = false
+      await tick()
       selectedFilter = newFilter
+      await tick()
+      filtering = true
     }
 
     function fillterTodos(todos: ITodo[], filter: FillterType): ITodo[] {
@@ -97,25 +106,19 @@
   }
 
   function clearcompleted():void{
-      $todos = $todos.filter(todo=> todo.completed !== true)
+      todos = todos.filter(todo=> todo.completed !== true)
     }
-
-
-    
-
-
-
 </script>
 
 
 <main>
-    <h1 class="title">Todos</h1>
+    <h1 class="title">#Blacklist</h1>
     <section class="todos">
         <AddTodo {addTodo} {toggleCompleted} {todosamount} />
         {#if todosamount}
         <ul class="todo-list">
                 {#each filltertodos as todo (todo.id) }
-                  <Todo {todo} {completeTodo} {removeTodo} {editTodo}/>
+                  <Todo {todo} {completeTodo} {removeTodo} {editTodo} {duration}/>
                 {/each}
             </ul>
 

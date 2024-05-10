@@ -1,13 +1,17 @@
 <script lang="ts">
-    import type { ITodo } from "$root/types/todos";
+    import type { ITodo } from "$root/types/todos"
+    import {fade,slide} from "svelte/transition"
     import '$root/styles/Todos.css'
     type CompleteTodoType = (id:string) => void
     type RemoveTodoType = (id:string)=> void
     type EditTodoType = (id:string, newTodo : string) => void
+    type DurationType = number
+
     export let todo :ITodo
     export let completeTodo : CompleteTodoType
     export let removeTodo : RemoveTodoType
     export let editTodo : EditTodoType
+    export let duration : DurationType
 
     let editing =  false
     function toggleEdit(){
@@ -39,7 +43,9 @@
 
 </script>
 
-<li class:editing class="todo">
+<li 
+in:slide= {{duration}} out:fade = {{duration}}
+class:editing class="todo">
     <div class="todo-item">
         <div>
             <input on:change={()=>completeTodo(todo.id)} checked={todo.completed} id="todo" class="toggle" type = "checkbox">

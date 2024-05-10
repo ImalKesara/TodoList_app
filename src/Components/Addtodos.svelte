@@ -26,7 +26,7 @@
 
 <style>
 
-    /* Add todo */
+    
   
     .toggle-all {
         width: 1px;
@@ -62,6 +62,6 @@
         border-bottom: 1px solid var(--shadow-1);
     }
     
-    /* Todo */
+    
     
 </style>
