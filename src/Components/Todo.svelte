@@ -1,12 +1,12 @@
 <script lang="ts">
     import type { FillterType,ITodo } from "$root/types/todos";
+    import {useStoragee} from '$root/types/useStorage';
     import AddTodo from './Addtodos.svelte'
     import Todo from './Todos.svelte'
     import TodosLeft from './TodosLeft.svelte'
     import FilterTodos from "./FilterTodos.svelte";
     import ClearTodos from "./ClearTodos.svelte"
     import '$root/styles/Todo.css'
-    import {useStorage} from '$root/stores/useStorage'
 
     // state
         // { id: '1e4a59703af84', text: 'Todo 1', completed: true },
@@ -17,7 +17,7 @@
 
 
 
-    let todos = useStorage<ITodo[]>('todos',[])
+    let todos = useStoragee<ITodo[]>('todos', [])
 
 
     // type FillterType = 'all' | 'active' | 'completed';
