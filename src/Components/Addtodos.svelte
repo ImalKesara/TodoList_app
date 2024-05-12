@@ -52,6 +52,19 @@
     .toggle-all:checked + label:before {
         color: var(--color-gray-28);
     }
+
+    @media only screen and (max-width: 412px) {
+        .new-todo {
+            background-color: rgb(0, 0, 0);
+            width: 100%;
+            padding: var(--spacing-16);
+            padding-left: 60px;
+            font-size: 10px;
+            border: none;
+            border-bottom: 1px solid var(--shadow-1);
+    }
+    }
+
     
     .new-todo {
         background-color: white;

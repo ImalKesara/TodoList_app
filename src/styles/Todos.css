@@ -8,6 +8,16 @@
   border-bottom: none;
 }
 
+@media only screen and (max-width: 412px) {
+  .todo-text {
+    display: block;
+    font-size: 15px;
+    padding: var(--spacing-16);
+    color: var(--color-gray-28);
+    transition: color 0.4s;
+  }
+}
+
 .todo-check,
 .todo-text {
   display: block;
