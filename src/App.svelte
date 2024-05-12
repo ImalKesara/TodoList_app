@@ -3,7 +3,4 @@
     import Todos from '$root/Components/Todo.svelte'
     
 </script>
-
-
-
 <Todos />
